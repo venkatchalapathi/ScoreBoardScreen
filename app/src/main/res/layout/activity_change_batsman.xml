@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangeBatsman"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="How the Wicket Fall?"
+        android:layout_margin="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:fontFamily="monospace"/>
+    <Spinner
+        android:id="@+id/wicketFall"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"/>
+
+    <Spinner
+        android:id="@+id/batsmans"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"/>
+    <EditText
+        android:id="@+id/whoHelped"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Who Helped"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:id="@+id/newBatsman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Batsman"
+        android:layout_margin="10dp"/>
+    <Button
+        android:id="@+id/doneAddNewBatsman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:layout_margin="10dp"/>
+</LinearLayout>

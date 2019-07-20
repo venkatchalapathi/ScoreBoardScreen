@@ -74,6 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Retire"
+                    android:textSize="10sp"
                     app:fontFamily="monospace"/>
                 <Button
                     android:layout_width="0dp"
@@ -81,11 +82,13 @@
                     android:layout_weight="1"
                     android:text="Swap"
                     app:fontFamily="monospace"
+                    android:textSize="10sp"
                     android:onClick="swapBatsman"/>
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
+                    android:textSize="10sp"
                     android:text="Partnership"
                     app:fontFamily="monospace"/>
             </LinearLayout>

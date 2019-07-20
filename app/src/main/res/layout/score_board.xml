@@ -29,6 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Undo"
+                    android:textSize="10sp"
                     app:fontFamily="monospace" />
 
                 <Button
@@ -36,6 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Redo"
+                    android:textSize="10sp"
                     app:fontFamily="monospace" />
 
                 <Button
@@ -43,6 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Extras"
+                    android:textSize="10sp"
                     app:fontFamily="monospace" />
             </LinearLayout>
 
@@ -152,7 +155,9 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@drawable/circle"
-                        android:text="..."
+                        android:textColor="#F71616"
+                        android:text="W"
+                        android:textStyle="bold"
                         android:gravity="center"
                         app:fontFamily="monospace" />
                 </LinearLayout>

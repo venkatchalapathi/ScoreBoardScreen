@@ -1,15 +1,19 @@
 package com.example.scoreboardscreen;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
+//F:\Entertainment\Music\Gaana\Fast Songs All
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button zero, one, two, three, four, five, six, more, undo, redo, extras;
@@ -18,12 +22,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView first_batsman_name, player_status1, first_batsman_runs, first_batsman_balls, first_batsman_fours, first_batsman_sixes, first_batsman_sr;
     TextView second_batsman_name, player_status2, second_batsman_runs, second_batsman_balls, second_batsman_fours, second_batsman_sixes, second_batsman_sr;
     TextView bowler_name, bowler_overs, bowler_madens, bowler_runs, bowler_wickets, bowler_er, bowler_over_balls;
-
+    int sco=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(this, "called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "called", Toast.LENGTH_SHORT).show();
         findViews();
         zero.setOnClickListener(this);
         one.setOnClickListener(this);
@@ -61,11 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         over = findViewById(R.id.main_over);
         over_balls = findViewById(R.id.main_over_balls);
         crr = findViewById(R.id.main_current_run_rate);
-       /* TextView player_view_1,player_vew_2;
-        TextView first_batsman_name,player_status1,first_batsman_runs,first_batsman_balls,first_batsman_fours,first_batsman_sixes,first_batsman_sr;
-        TextView second_batsman_name,player_status2,second_batsman_runs,second_batsman_balls,second_batsman_fours,second_batsman_sixes,second_batsman_sr;
-        TextView bowler_name,bowler_overs,bowler_madens,bowler_runs,bowler_wickets,bowler_er;
-*/
+
         player_view_1 = findViewById(R.id.first_batsman_view);
         player_vew_2 = findViewById(R.id.second_batsman_view);
 
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         switch (id) {
             case R.id.zero_score:
-                updateZeroScore();
+                updateOneScore(0);
                 break;
             case R.id.one_score:
                 updateOneScore(1);
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 updateOneScore(6);
                 break;
             case R.id.more_score:
+                updateOneScore(7);
                 break;
             case R.id.undo_score:
                 break;
@@ -132,33 +133,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void swapBatsman(){
-        float b1x = player_view_1.getX();
-        float b2x = player_vew_2.getX();
-        float b1y = player_view_1.getY();
-        float b2y = player_vew_2.getY();
+    private void swapBatsman() {
 
-        player_view_1.setX(b2x);
-        player_view_1.setY(b2y);
+        String fname, ffours, fsr, fsix, fballs, fruns;
+        String sname, sfours, ssr, ssix, sballs, sruns;
 
-        player_vew_2.setX(b1x);
-        player_vew_2.setY(b1y);
+        ssr = second_batsman_sr.getText().toString();
+        ssix = second_batsman_sixes.getText().toString();
+        sfours = second_batsman_fours.getText().toString();
+        sname = second_batsman_name.getText().toString();
+        sballs = second_batsman_balls.getText().toString();
+        sruns = second_batsman_runs.getText().toString();
+
+        fname = first_batsman_name.getText().toString();
+        fsr = first_batsman_sr.getText().toString();
+        fsix = first_batsman_sixes.getText().toString();
+        ffours = first_batsman_fours.getText().toString();
+        fballs = first_batsman_balls.getText().toString();
+        fruns = first_batsman_runs.getText().toString();
+
+        first_batsman_sr.setText(ssr);
+        first_batsman_sixes.setText(ssix);
+        first_batsman_fours.setText(sfours);
+        first_batsman_name.setText(sname);
+        first_batsman_balls.setText(sballs);
+        first_batsman_runs.setText(sruns);
+
+        second_batsman_name.setText(fname);
+        second_batsman_sr.setText(fsr);
+        second_batsman_sixes.setText(fsix);
+        second_batsman_fours.setText(ffours);
+        second_batsman_balls.setText(fballs);
+        second_batsman_runs.setText(fruns);
+
 
     }
+
     private void updateOneScore(int n) {
         switch (n) {
             case 0: {
+                updateBatsmanScore(0);
                 updateOver();
                 break;
             }
             case 1: {
 
+                boolean striker = false;
                 int mScore = Integer.parseInt(score.getText().toString());
                 int bowler_run = Integer.parseInt(bowler_runs.getText().toString());
                 bowler_run += 1;
                 bowler_runs.setText("" + bowler_run);
                 mScore += 1;
                 score.setText("" + mScore);
+                updateBatsmanScore(1);
+                swapBatsman();
                 updateOver();
                 break;
             }
@@ -170,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bowler_runs.setText("" + bowler_run);
                 mScore += 2;
                 score.setText("" + mScore);
+                updateBatsmanScore(2);
                 updateOver();
                 break;
             }
@@ -180,6 +209,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bowler_runs.setText("" + bowler_run);
                 mScore += 3;
                 score.setText("" + mScore);
+                updateBatsmanScore(3);
+                swapBatsman();
                 updateOver();
                 break;
             }
@@ -190,6 +221,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bowler_runs.setText("" + bowler_run);
                 mScore += 4;
                 score.setText("" + mScore);
+                int fours = Integer.parseInt(first_batsman_fours.getText().toString());
+                first_batsman_fours.setText("" + (fours + 1));
+                updateBatsmanScore(4);
                 updateOver();
                 break;
             }
@@ -200,6 +234,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bowler_runs.setText("" + bowler_run);
                 mScore += 5;
                 score.setText("" + mScore);
+                updateBatsmanScore(5);
+                swapBatsman();
                 updateOver();
                 break;
             }
@@ -211,33 +247,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bowler_runs.setText("" + bowler_run);
                 mScore += 6;
                 score.setText("" + mScore);
+                int sixes = Integer.parseInt(first_batsman_sixes.getText().toString());
+                first_batsman_sixes.setText("" + (sixes + 1));
+                updateBatsmanScore(6);
                 updateOver();
                 break;
             }
             case 7: {
-
-                int mScore = Integer.parseInt(score.getText().toString());
-                int bowler_run = Integer.parseInt(bowler_runs.getText().toString());
-                bowler_run += 1;
-                bowler_runs.setText("" + bowler_run);
-                mScore += 1;
-                score.setText("" + mScore);
-                updateOver();
+                newBatsman();
                 break;
             }
         }
 
     }
 
-    private void updateZeroScore() {
-        Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
-        updateOver();
+    private void updateBatsmanScore(int i) {
+        DecimalFormat df2 = new DecimalFormat("#.##");
+        int runs = Integer.parseInt(first_batsman_runs.getText().toString());
+        int balls = Integer.parseInt(first_batsman_balls.getText().toString());
+        // Toast.makeText(this, "Clicked"+balls, Toast.LENGTH_SHORT).show();
+        balls = balls + 1;
+        runs += i;
+        first_batsman_runs.setText("" + (runs));
+        first_batsman_balls.setText("" + balls);
+        double a = 0;
+        a = (double) runs / (double) balls;
+        //Toast.makeText(this, "a Values is :"+a, Toast.LENGTH_SHORT).show();
+        first_batsman_sr.setText("" + (int) (a * 100));
     }
 
     private void updateOver() {
         int overbals = Integer.parseInt(over_balls.getText().toString());
         int bowler_ov = Integer.parseInt(bowler_over_balls.getText().toString());
 
+
+        if (overbals == 1){
+            sco = Integer.parseInt(score.getText().toString());
+        }
         if (overbals == 5 && bowler_ov == 5) {
             int temp_over = Integer.parseInt(over.getText().toString());
             int temp_bowl_over = Integer.parseInt(bowler_overs.getText().toString());
@@ -251,14 +297,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             over_balls.setText("" + 0);
             Double movers = Double.parseDouble(over.getText().toString());
             Double mscore = Double.parseDouble(score.getText().toString());
-            Toast.makeText(this, ""+mscore, Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(this, ""+mscore, Toast.LENGTH_SHORT).show();
 
             Double mcrr = mscore / movers;
             crr.setText("" + df2.format(mcrr));
+            if (sco == Integer.parseInt(score.getText().toString())){
+                bowler_madens.setText(""+(Integer.parseInt(bowler_madens.getText().toString())+1));
+            }
+            swapBatsman();
+            newBowler();
+
         } else {
             over_balls.setText("" + (overbals + 1));
             bowler_over_balls.setText("" + (bowler_ov + 1));
         }
+    }
+
+    private void newBowler() {
+        Intent intent = new Intent(this, ChangeBowler.class);
+        startActivityForResult(intent, 002);
     }
 
     public void swapBatsman(View view) {
@@ -268,4 +325,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        player_view_1.gevi
 //    }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 001) {
+            String newBatsman = data.getStringExtra("newBatsman");
+            first_batsman_name.setText(newBatsman);
+            first_batsman_sixes.setText("0");
+            first_batsman_fours.setText("0");
+            first_batsman_sr.setText("0");
+            first_batsman_balls.setText("0");
+            first_batsman_runs.setText("0");
+        }
+        if (requestCode == 002 && resultCode == RESULT_OK) {
+            String newBowler = data.getStringExtra("newBowler");
+            Toast.makeText(this, "" + newBowler, Toast.LENGTH_SHORT).show();
+            bowler_runs.setText("0");
+            bowler_name.setText(newBowler);
+            bowler_madens.setText("0");
+            bowler_wickets.setText("0");
+            bowler_er.setText("0");
+            bowler_over_balls.setText("0");
+            bowler_overs.setText("0");
+        }
+
+
+    }
+
+    public void newBatsman() {
+        Intent intent = new Intent(this, ChangeBatsman.class);
+        startActivityForResult(intent, 001);
+
+    }
 }
